@@ -3,11 +3,9 @@ import oracledb
 import json
 import pandas as pd
 
-conexao = False  # Conexão com o banco de dados
-
 try:
     conn = oracledb.connect(user='rm567175', password='060995', dsn='oracle.fiap.com.br:1521/ORCL')
-    # Cursores para cada operação (CRUD)
+
     cursor_insert = conn.cursor()
     cursor_select = conn.cursor()
     cursor_update = conn.cursor()
@@ -23,9 +21,8 @@ except Exception as e:
 #colunas
 colunas_display = ['ID', 'COLHEITADEIRA', 'HECTARES', 'PERDAS_HA', 'PREJUIZO_ESTIMADO']
 
-#arquivo Jason
+#arquivo json
 arquivo_json = 'relatorio_colheita.json'
-
 
 # ==============================================================================
 # 2. SUBALGORITMOS (FUNÇÕES E PROCEDIMENTOS)
@@ -73,14 +70,14 @@ def valida_float(pergunta: str) -> float:
             print("Entrada inválida. Digite um número real (casa decimal com ponto '.' ao invés de vírgula ',').")
 
 
-#salvar o Jason
+#salvar o json
 def salvar_em_json(dados_json):
     with open(arquivo_json, 'w', encoding='utf-8') as f:
         json.dump(dados_json, f, ensure_ascii=False, indent=4)
     print("\nRelatório de colheitas salvo em", arquivo_json)
 
 
-#carregar dados no Jason
+#carregar dados no json
 def carregar_do_json() -> list:
     try:
         with open(arquivo_json, 'r', encoding='utf-8') as f:
@@ -231,7 +228,7 @@ def excluir_colheita():
         conn.rollback()
 
 
-#excluir todos os registros da tabela --PRERIGO--
+#excluir todos os registros da tabela
 def excluir_todos_registros():
     print("░█▀▀░█░█░█▀▀░█░░░█░█░▀█▀░█▀▄░░░▀█▀░█▀█░█▀▄░█▀█░█▀▀░░░█▀█░█▀▀░░░█▀▄░█▀▀░█▀▀░▀█▀░█▀▀░▀█▀░█▀▄░█▀█░█▀▀")
     print("░█▀▀░▄▀▄░█░░░█░░░█░█░░█░░█▀▄░░░░█░░█░█░█░█░█░█░▀▀█░░░█░█░▀▀█░░░█▀▄░█▀▀░█░█░░█░░▀▀█░░█░░█▀▄░█░█░▀▀█")
@@ -246,7 +243,7 @@ def excluir_todos_registros():
             cursor_delete.execute("ALTER TABLE TBL_COLHEITA MODIFY (ID GENERATED AS IDENTITY (START WITH 1))")
             conn.commit()
 
-            #limpar o Jason
+            #limpar o json
             salvar_em_json([])
 
             print("\nTodos os registros foram excluídos com sucesso.")
@@ -257,30 +254,29 @@ def excluir_todos_registros():
         print("\nOperação de exclusão cancelada.")
 
 
-# =======================================================================
+# ================================================================
 # ===============    3. LÓGICA PRINCIPAL =========================
-# ==============================================================================
-if conexao:
-    while True:
-        limpar_tela()
-        escolha = exibe_menu()
+# ================================================================
+while conexao:
+    limpar_tela()
+    escolha = exibe_menu()
 
-        if escolha == 1:
-            registrar_colheita()
-        elif escolha == 2:
-            listar_colheitas()
-        elif escolha == 3:
-            atualizar_colheita()
-        elif escolha == 4:
-            excluir_colheita()
-        elif escolha == 5:
-            excluir_todos_registros()
-        elif escolha == 6:
-            print("Saindo da aplicação. Obrigado por usar!")
-            break
+    if escolha == 1:
+        registrar_colheita()
+    elif escolha == 2:
+        listar_colheitas()
+    elif escolha == 3:
+        atualizar_colheita()
+    elif escolha == 4:
+        excluir_colheita()
+    elif escolha == 5:
+        excluir_todos_registros()
+    elif escolha == 6:
+        print("Saindo da aplicação. Obrigado por usar!")
+        break
 
-        input("\nPressione ENTER para continuar...")
+    input("\nPressione ENTER para continuar...")
 
-    # Fechar a conexão ao sair do programa
-    if conn:
-        conn.close()
+# Fechar a conexão ao sair do programa
+if conn:
+    conn.close()
