@@ -1,40 +1,44 @@
-# Projeto: Sistema de Monitoramento de Perdas na Colheita de Cana-de-Açúcar
-# Visão Geral do Projeto
-Este projeto consiste no desenvolvimento de um sistema em Python para monitorar e gerir as perdas de cana-de-açúcar durante a colheita mecanizada. A solução atua como uma AgroTech, oferecendo uma ferramenta digital para auxiliar produtores rurais na otimização de seus processos e na redução de prejuízos financeiros significativos.
+# Sistema de Monitoramento de Perdas na Colheita de Cana-de-Açúcar
 
-# O Problema no Agronegócio
-Apesar de o Brasil ser um líder global na produção de cana-de-açúcar, as perdas na colheita mecanizada são um desafio constante. Essas perdas podem atingir até 15% da produção, resultando em um prejuízo anual de milhões de reais para o setor. A falta de dados precisos e de um sistema de monitoramento em tempo real dificulta a identificação e correção das falhas operacionais, comprometendo a produtividade do negócio.
+## 👨‍🎓 Integrantes:
+- Jorge Augusto Rodrigues Macedo / RM567175
+- Lucca de Almeida Benigno / RM566930
+- Thiago Costa Sales / RM567889
 
-# A Solução Proposta
-A nossa solução é um aplicativo de console em Python que simula um sistema de bordo para colheitadeiras. Ele permite ao usuário (o produtor rural) registrar, visualizar, atualizar e excluir dados de colheitas, oferecendo uma visão clara do desempenho e das perdas.
+## 👩‍🏫 Professores:
+### Tutora) 
+- Ana Cristina dos Santos
+### Coordenador(a)
+- André Godoi Chiovato
 
-A aplicação busca inovar ao transformar dados de campo em informações valiosas, permitindo que o produtor tome decisões mais assertivas para reduzir o desperdício e maximizar o lucro.
+## 📜 Descrição
 
-# Tecnologias e Conceitos de Python Utilizados
-O desenvolvimento desta aplicação integra diversos conceitos abordados nos capítulos 3, 4, 5 e 6 do nosso material de estudo:
+Este projeto é uma AgroTech, uma solução digital desenvolvida em Python para enfrentar um problema crítico no agronegócio: as perdas na colheita mecanizada de cana-de-açúcar. Apesar de o Brasil ser o maior produtor global, as perdas chegam a 15% da produção, causando grandes prejuízos financeiros aos produtores.
 
-Subalgoritmos: O código é modularizado em funções e procedimentos, `como exibe_menu()`, `valida_float()` e `registrar_colheita()`, para promover a reutilização de código e uma lógica clara.
+Nossa aplicação atua como um sistema de bordo, permitindo que o produtor rural monitore e gerencie a eficiência de suas colheitadeiras. O objetivo é fornecer dados claros sobre a produtividade e as perdas, possibilitando a tomada de decisões mais precisas para otimizar o processo de colheita.
 
-Estruturas de Dados: Para armazenar e manipular os dados, foram utilizadas:
+A solução foi desenvolvida com base nos seguintes conceitos fundamentais de programação:
 
-Listas: Para criar uma tabela de memória dinâmica, armazenando múltiplos registros.
+- Subalgoritmos: O código é modularizado em funções e procedimentos para tornar a lógica mais limpa e organizada.
 
-Dicionários: Cada registro de colheita é estruturado como um dicionário, usando chaves (keys) como `id_colheitadeira` e `perdas_por_ha` para organizar os dados de forma legível.
+- Estruturas de Dados: Utilizamos listas e dicionários para criar uma representação de tabela em memória, facilitando a manipulação e o armazenamento temporário de dados.
 
-Manipulação de Arquivos: O sistema salva e lê dados em formato `.json`, garantindo a persistência dos registros de forma estruturada e portátil. Isso foi feito utilizando a biblioteca json para codificar e decodificar os dados.
+- Manipulação de Arquivos: Os registros de colheita são salvos e carregados em um formato JSON, garantindo portabilidade e persistência dos dados.
 
-Conexão com Banco de Dados: A solução se conecta a um banco de dados Oracle para armazenar o histórico de colheitas de forma permanente. As operações de CRUD (Create, Read, Update, Delete) são executadas usando a biblioteca oracledb.
+- Conexão com Banco de Dados: A aplicação estabelece uma conexão com um banco de dados Oracle para realizar as operações de CRUD (Create, Read, Update, Delete) de forma segura e duradoura.
 
-Tratamento de Erros: Foram implementados blocos try-except para prever e lidar com erros de entrada do usuário (como digitar texto em vez de números) e problemas na conexão com o banco de dados, evitando que a aplicação seja encerrada de forma inesperada.
+- Tratamento de Erros: O sistema é robusto, utilizando blocos try-except para validar as entradas do usuário e tratar possíveis falhas na conexão com o banco de dados.
 
-# Como Executar o Projeto
-Pré-requisitos: Certifique-se de que o Python e as bibliotecas necessárias (`oracledb`, `pandas`, `json`) estejam instaladas. Você pode instalá-las com o comando:
+A interface do programa, embora seja via prompt de comando, é projetada para ser intuitiva e fácil de usar, com um menu claro e dados exibidos de forma organizada para uma melhor usabilidade.
+
+## 🔧 Como executar o código
+Para executar a aplicação, siga o passo a passo abaixo:
+
+1- Pré-requisitos: Certifique-se de que o Python está instalado em seu sistema. É necessário também instalar as bibliotecas `oracledb` e `pandas`, que podem ser instaladas via `pip`:
 
 `pip install oracledb pandas`
 
-Configuração do Banco de Dados: Antes de rodar o código, execute o script SQL abaixo no seu ambiente Oracle para criar a tabela TBL_COLHEITA.
-
-# SQL
+2 - Configuração do Banco de Dados: Antes de rodar o código, execute o script SQL abaixo no seu ambiente Oracle para criar a tabela TBL_COLHEITA.
 
 `CREATE TABLE TBL_COLHEITA (
     ID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -44,15 +48,13 @@ Configuração do Banco de Dados: Antes de rodar o código, execute o script SQL
     PREJUIZO_ESTIMADO FLOAT NOT NULL
 );`
 
-Configuração do Código: No arquivo principal, localize a seção de conexão do banco de dados e insira suas credenciais de usuário e senha do Oracle.
-
-# Python
+3 - Configuração do Código: No arquivo principal, localize a seção de conexão do banco de dados e insira suas credenciais de usuário e senha do Oracle.
 
 Exemplo:
 `conn = oracledb.connect(user='[SEU_USUARIO]', password='[SUA_SENHA]', dsn='oracle.fiap.com.br:1521/ORCL')`
 
-Execução: Execute o arquivo Python no terminal.
+4 - Execução: Execute o arquivo Python no terminal.
 
-`python seu_arquivo.py`
+`python app.py`
 
 A aplicação será iniciada e o menu de opções será exibido.
