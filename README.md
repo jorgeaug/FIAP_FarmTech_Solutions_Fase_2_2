@@ -38,7 +38,7 @@ Para executar a aplicação, siga o passo a passo abaixo:
 
 `pip install oracledb pandas`
 
-2 - Configuração do Banco de Dados: Antes de rodar o código, execute o script SQL abaixo no seu ambiente Oracle para criar a tabela TBL_COLHEITA.
+2 - Configuração do Banco de Dados: Antes de rodar o código, execute o script SQL abaixo (localizado na pasta 'scripts') no seu ambiente Oracle para criar a tabela TBL_COLHEITA.
 
 `CREATE TABLE TBL_COLHEITA (
     ID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -53,7 +53,7 @@ Para executar a aplicação, siga o passo a passo abaixo:
 Exemplo:
 `conn = oracledb.connect(user='[SEU_USUARIO]', password='[SUA_SENHA]', dsn='oracle.fiap.com.br:1521/ORCL')`
 
-4 - Execução: Execute o arquivo Python no terminal.
+4 - Execução: Execute o arquivo Python (presente na pasta 'src') no terminal.
 
 `python app.py`
 
